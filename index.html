@@ -210,7 +210,7 @@ const logo=`<svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><
 function pill(t,k){return `<span class="pill p-${k}">${t}</span>`}
 function shell(inner){
  const allowed=ROLES[S.role].views;
- const nav=NAV.map(([g,items])=>`<div class="grp">${g}</div>`+items.map(([v,l,p])=>{const ok=v==="portal"||allowed.includes(v);return `<a href="#${v}" data-go="${v}" class="${S.view===v?"on":""}" ${ok?"":"hidden"}><span class="pn">${p}</span>${l}</a>`}).join("")).join("");
+ const nav=NAV.map(([g,items])=>(items.some(([v])=>v==="portal"||allowed.includes(v))?`<div class="grp">${g}</div>`:"")+items.map(([v,l,p])=>{const ok=v==="portal"||allowed.includes(v);return `<a href="#${v}" data-go="${v}" class="${S.view===v?"on":""}" ${ok?"":"hidden"}><span class="pn">${p}</span>${l}</a>`}).join("")).join("");
  return `<div class="app"><aside class="rail"><div class="brand">${logo}<div><b>SunriseCare</b><small>Sunrise Family Clinics</small></div></div>
  <nav class="nav" aria-label="Modules">${nav}</nav>
  <div class="who"><label for="role">Signed in as (role demo)</label><select id="role">${Object.entries(ROLES).map(([k,r])=>`<option value="${k}" ${S.role===k?"selected":""}>${r.n}</option>`).join("")}</select>
